@@ -5,7 +5,7 @@
 
 char nome[SIZE][50];
 char email[SIZE][50];
-int cpf[SIZE];
+char cpf[SIZE][11];
 int op;
 
 int menu();
@@ -18,31 +18,27 @@ int main(){ //inicio do programa
 	inicio: menu();
 	switch(op){
 		case 1:
-			system("cls");
 			cadastro();
 			goto inicio;
 			break;
 		case 2:
-			system("cls");
 			pesquisa();
 			goto inicio;
 			break;
 		case 3:
-			system("cls");
 			goto inicio;
 			break;
 		default:
-			system("cls");
-			printf("Opcao Invalida!");
+			printf("Opcao Invalida!\n\n");
+			system("pause");
 			goto inicio;
 			break;	
-}
+	}
 	
 } //final do programa
 
 int menu(){ //inicio da funcao menu
 	
-	system("cls");
 	printf("\t\tCADASTRO DE CLIENTES\n\nDigite:\n\n(1) - Cadastro\n(2) - Pesquisar\n(3) - Reservado\n\n---> ");
 	scanf("%d", &op);
 	return op;
@@ -51,7 +47,8 @@ int menu(){ //inicio da funcao menu
 
 void cadastro(){ //inicio da funcao cadastro
 	
-		static int linha; //
+		static int linha; 
+		
 	do {
 		system("cls");
 		printf("Digite o nome: ");
@@ -63,8 +60,8 @@ void cadastro(){ //inicio da funcao cadastro
 		printf("Digite o CPF: ");
 		scanf("%s", &cpf[linha]);
 		system("cls");
-		printf("Digite:\n\n(1) - Novo cadastro\n(2) - Sair\n");
-		scanf("%i", &op);
+		printf("Nome: %s\ne-mail: %s\nCPF: %s\n\nCADASTRO REALIZADO COM SUCESSO!\n\nDigite:\n\n(1) - Novo cadastro\n(0) - Sair\n\n---> ", &nome[linha], &email[linha], &cpf[linha]);
+		scanf("%d", &op);
 		linha++;
 	}while(op == 1);
 		
@@ -72,36 +69,58 @@ void cadastro(){ //inicio da funcao cadastro
 
 void pesquisa(){ //inicio da funcao pesquisa
 	
-	int cpfPesq, i;
-	char emailPesq[50];
+	
+	int i;
+	char cpfPesquisa[11];
+	char emailPesquisa[50];
+	
 	do{
-		
-		printf("Digite:\n\n(1) - Pesquisa por CPF\n(0) - Pesquisa por email\n\n---> ");
+		system("cls");
+		printf("Digite:\n\n(1) - Pesquisa por CPF\n(2) - Pesquisa por email\n\n---> ");
 		scanf("%d", &op);
 			switch(op){
 				case 1:
-					system("cls");
+					pesq1: system("cls");
 					printf("Digite o CPF: ");
-					scanf("%d", &cpfPesq);
+					scanf("%s", &cpfPesquisa);
 						for(i = 0; i < SIZE; i++){
-							if(cpf[i] == cpfPesq){
-								printf("Nome: %s\nE-Mail: %s\nCPF: %d", nome[i], email[i], cpf[i]);
+							if(strcmp(cpf[i], cpfPesquisa) == 0){
+								system("cls");
+								printf("Nome: %s\nE-Mail: %s\nCPF: %s\n\n", nome[i], email[i], cpf[i]);
+								system("pause");
+								break;
 							}
 							else{
 								system("cls");
-								printf("Não Encontrado!\n\nDigite:\n\n(1) - Pesquisar novamente\n(0) - Sair\n\n--> ");
+								printf("Nao Encontrado!\n\nDigite:\n\n(1) - Pesquisar novamente\n(0) - Voltar para o menu\n\n--> ");
 								scanf("%d", &op);
+									if(op==1){
+										goto pesq1;
+									}
+								break;					
 							}	
 						}
 					break;
 				case 2:
-					system("cls");
+					pesq2: system("cls");
 					printf("Digite o email: ");
-					scanf("%s", &emailPesq);
+					scanf("%s", &emailPesquisa);
 						for(i = 0; i < SIZE; i++){
-							if(strcmp(email[i], emailPesq)){ //strcmp = compara strings - incluir string.h
-								printf("Nome: %s\nE-Mail: %s\nCPF: %d", nome[i], email[i], cpf[i]);
+							if(strcmp(email[i], emailPesquisa) == 0){ //strcmp = compara strings - incluir string.h
+								system("cls");
+								printf("Nome: %s\nE-Mail: %s\nCPF: %s\n\n", nome[i], email[i], cpf[i]);
+								system("pause");
+								break;
 							}
+							else{
+								system("cls");
+								printf("Nao Encontrado!\n\nDigite:\n\n(1) - Pesquisar novamente\n(0) - Sair\n\n--> ");
+								scanf("%d", &op);
+									if(op==1){
+										goto pesq2;
+									}	
+								break;				
+							}	
 						}
 					break;
 				default:
@@ -109,9 +128,6 @@ void pesquisa(){ //inicio da funcao pesquisa
 					printf("Opção Invaida!");
 					break;	
 			}
-			system("cls");	
-			printf("Digite:\n\n(1) - Pesquisar\n(0) - Sair\n\n--> ");
-			scanf("%d", &op);
 	}while(op == 1);
 	
 } //fim da funao pesquisa
