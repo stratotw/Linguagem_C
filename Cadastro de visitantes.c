@@ -11,7 +11,7 @@ int op;
 int menu();
 void cadastro();
 void pesquisa();
-void lista();
+void listar();
 
 int main(){ //inicio do programa
 	
@@ -27,9 +27,12 @@ int main(){ //inicio do programa
 			goto inicio;
 			break;
 		case 3:
-			lista();
+			listar();
 			system("pause");
 			goto inicio;
+			break;
+		case 4:
+			system("exit");	
 			break;
 		default:
 			printf("Opcao Invalida!\n\n");
@@ -43,7 +46,7 @@ int main(){ //inicio do programa
 int menu(){ //inicio da funcao menu
 	
 	system("cls");
-	printf("\t\tCADASTRO DE CLIENTES\n\nDigite:\n\n(1) - Cadastro\n(2) - Pesquisar\n(3) - Listar\n\n---> ");
+	printf("\t\tCADASTRO DE CLIENTES\n\nDigite:\n\n(1) - Cadastro\n(2) - Pesquisar\n(3) - Listar\n(4) - Sair\n\n---> ");
 	scanf("%d", &op);
 	return op;
 	
@@ -136,15 +139,17 @@ void pesquisa(){ //inicio da funcao pesquisa
 			}
 	}while(op == 1);
 	
-} //fim da funao pesquisa
+} //fim da funcao pesquisa
 
-void lista(){ //inicio da funcao lista
+void listar(){ //inicio da funcao lista
 	
 	int i;
 	
 	for(i = 0; i < SIZE; i++){
-		if(nome[i] != 0){
+		if(cpf[i] != 0){
 			printf("Nome: %s\nE-Mail: %s\nCPF: %d\n\n", nome[i], email[i], cpf[i]);
+		}else{
+			break;
 		}
 	}	 
-}//Fim da funcao lista
+}//Fim da funcao listar
